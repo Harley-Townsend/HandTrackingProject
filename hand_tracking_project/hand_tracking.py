@@ -4,9 +4,8 @@ import socket
 from mediapipe.tasks.python import vision
 from mediapipe.tasks.python import BaseOptions
 
-# --- Socket setup ---
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(("127.0.0.1", 5555))
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+TARGET = ("127.0.0.1", 5555)
 
 model_path = "hand_landmarker.task"
 cap = cv2.VideoCapture(0)
@@ -22,7 +21,7 @@ while True:
     ret, frame = cap.read()
     if not ret:
         break
-
+    # Flip the frame horizontally
     frame = cv2.flip(frame, 1)
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -31,12 +30,15 @@ while True:
 
     if result.hand_landmarks:
         hand = result.hand_landmarks[0]
-        lm = hand[8]  # index finger tip
-        x = lm.x
-        y = lm.y
 
-        data = f"{x},{y}\n"
-        sock.send(data.encode())
+        values = []
+        for lm in hand:
+            values.append(str(lm.x))
+            values.append(str(lm.y))
+            values.append(str(lm.z))
+
+        data = ",".join(values)
+        sock.sendto(data.encode(), TARGET)
 
     cv2.imshow("Hand Tracking", frame)
     if cv2.waitKey(1) & 0xFF == 27:

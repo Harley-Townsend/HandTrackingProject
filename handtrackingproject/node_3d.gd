@@ -1,27 +1,63 @@
 extends Node3D
 
-var server := TCPServer.new()
-var peer : StreamPeerTCP
+@onready var joints_root = $HandJoints
+var udp := PacketPeerUDP.new()
 
-@onready var hand = $HandSphere
+var joints = []
+
+var last_wrist := Vector3.ZERO
+var has_last := false
 
 func _ready():
-	server.listen(5555)
-	print("Server listening on port 5555")
+	udp.bind(5555)
+	print("Listening for 21-joint hand tracking...")
 
-func _process(delta):
-	if server.is_connection_available():
-		peer = server.take_connection()
-		print("Python connected!")
+	for i in range(21):
+		joints.append(joints_root.get_node("Joint" + str(i)))
 
-	if peer and peer.get_available_bytes() > 0:
-		var msg = peer.get_utf8_string(peer.get_available_bytes())
-		var parts = msg.strip_edges().split(",")
+func _process(_delta):
+	while udp.get_available_packet_count() > 0:
+		var packet = udp.get_packet().get_string_from_utf8()
+		update_hand(packet)
 
-		if parts.size() == 2:
-			var x = float(parts[0])
-			var y = float(parts[1])
+func update_hand(data: String):
+	var v = data.split(",")
+	if v.size() < 63:
+		return
 
-			# Convert normalized coords to 3D space
-			hand.position.x = (x - 0.5) * 5.0
-			hand.position.y = (0.5 - y) * 3.0
+	# --- Wrist position from MediaPipe ---
+	var wx = float(v[0])
+	var wy = float(v[1])
+	var wz = float(v[2])
+
+	var wrist = Vector3(wx, wy, wz)
+
+	# --- Convert to relative movement instead of absolute ---
+	if has_last:
+		var delta = wrist - last_wrist
+
+		# Apply movement scaling (tweakable)
+		var move = Vector3(
+			delta.x * 6.0,
+			-delta.y * 6.0,
+			-delta.z * 6.0
+		)
+
+		position += move
+
+	last_wrist = wrist
+	has_last = true
+
+	# --- Update finger joints normally ---
+	for i in range(21):
+		var x = float(v[i * 3 + 0])
+		var y = float(v[i * 3 + 1])
+		var z = float(v[i * 3 + 2])
+
+		var pos = Vector3(
+			(x - 0.5) * 4.0,
+			(0.5 - y) * 4.0,
+			-z * 2.0
+		)
+
+		joints[i].position = pos
