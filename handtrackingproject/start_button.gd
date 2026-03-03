@@ -1,17 +1,15 @@
 extends Area3D
 
-var is_hovered := false
+@onready var mesh = $MeshInstance3D
 
-func on_hand_point():
-	is_hovered = true
-	scale = Vector3(1.2, 1.2, 1.2) # visual feedback
-	if Input.is_action_just_pressed("ui_accept"):
-		start_game()
+func on_hand_enter():
+	scale = Vector3(1.2, 1.2, 1.2) # highlight
 
-func _process(_delta):
-	if not is_hovered:
-		scale = Vector3.ONE
-	is_hovered = false
+func on_hand_exit():
+	scale = Vector3.ONE
+
+func on_hand_click():
+	start_game()
 
 func start_game():
 	print("Start Game Pressed")

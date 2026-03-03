@@ -6,26 +6,6 @@
 [ext_resource type="Script" uid="uid://oxx72x6sokk2" path="res://hand_joints.gd" id="4_jka67"]
 [ext_resource type="Texture2D" uid="uid://dv5h75m0dsv30" path="res://vb_logo.png" id="5_jka67"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r3fl7"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jka67"]
-albedo_color = Color(0.25490198, 0.2, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_i5arm"]
-material = SubResource("StandardMaterial3D_jka67")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noarx"]
-albedo_color = Color(0.002350706, 0.6109291, 0.30935714, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_a0tk4"]
-material = SubResource("StandardMaterial3D_noarx")
-
-[sub_resource type="SphereMesh" id="SphereMesh_a202f"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_a0tk4"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_noarx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0tk4"]
@@ -37,20 +17,50 @@ material = SubResource("StandardMaterial3D_a0tk4")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i5arm"]
 albedo_texture = ExtResource("5_jka67")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc5p8"]
-albedo_texture = ExtResource("5_jka67")
+[sub_resource type="QuadMesh" id="QuadMesh_wc5p8"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_jsk3o"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_jka67"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc5p8"]
+albedo_color = Color(0.14509805, 0.23529412, 0.45882353, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jsk3o"]
 material = SubResource("StandardMaterial3D_wc5p8")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i5arm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsk3o"]
+albedo_color = Color(0.3764706, 0.8156863, 0.6745098, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4arys"]
+material = SubResource("StandardMaterial3D_jsk3o")
+
+[sub_resource type="SphereMesh" id="SphereMesh_a202f"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a0tk4"]
 
 [node name="Node3D" type="Node3D" unique_id=2050006339]
 script = ExtResource("1_a202f")
 
+[node name="Floor" type="StaticBody3D" parent="." unique_id=2040367098]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1922159215]
+shape = SubResource("BoxShape3D_noarx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1094480368]
+mesh = SubResource("BoxMesh_r3fl7")
+
+[node name="Title" type="MeshInstance3D" parent="." unique_id=463202910]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 5, -8)
+material_override = SubResource("StandardMaterial3D_i5arm")
+mesh = SubResource("QuadMesh_wc5p8")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1221266358]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.1012857, -4.20841)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1820449128]
-transform = Transform3D(1, 0, 0, 0, 0.052823935, 0.9986038, 0, -0.9986038, 0.052823935, 0, 4.912308, 0)
+transform = Transform3D(1, 0, 0, 0, 0.69284827, 0.72108346, 0, -0.72108346, 0.69284827, 0, 7.2073197, 3.3541503)
 
 [node name="Menu3D" type="Node3D" parent="." unique_id=942427442]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4.502)
@@ -60,23 +70,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 script = ExtResource("2_noarx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Menu3D/StartButton" unique_id=1102407355]
-shape = SubResource("BoxShape3D_r3fl7")
+shape = SubResource("SphereShape3D_jka67")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Menu3D/StartButton" unique_id=1292254620]
-mesh = SubResource("BoxMesh_i5arm")
+mesh = SubResource("SphereMesh_jsk3o")
+
+[node name="Label3D" type="Label3D" parent="Menu3D/StartButton" unique_id=737922211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
+text = "Start"
 
 [node name="QuitButton" type="Area3D" parent="Menu3D" unique_id=1941333631]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("3_r3fl7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Menu3D/QuitButton" unique_id=1293885475]
-shape = SubResource("BoxShape3D_a202f")
+shape = SubResource("SphereShape3D_i5arm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Menu3D/QuitButton" unique_id=1101850025]
-mesh = SubResource("BoxMesh_a0tk4")
+mesh = SubResource("SphereMesh_4arys")
+
+[node name="Label3D" type="Label3D" parent="Menu3D/QuitButton" unique_id=90627898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
+text = "Quit"
 
 [node name="HandJoints" type="Node3D" parent="." unique_id=1617193802]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.675)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
 script = ExtResource("4_jka67")
 
 [node name="Joint0" type="Node3D" parent="HandJoints" unique_id=783392809]
@@ -212,19 +230,4 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 mesh = SubResource("SphereMesh_a202f")
 
 [node name="RayCast3D" type="RayCast3D" parent="HandJoints" unique_id=940373036]
-
-[node name="Floor" type="StaticBody3D" parent="." unique_id=2040367098]
-transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1922159215]
-shape = SubResource("BoxShape3D_noarx")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1094480368]
-mesh = SubResource("BoxMesh_r3fl7")
-
-[node name="Title" type="Node3D" parent="." unique_id=419706731]
-transform = Transform3D(12, 0, 0, 0, 6, 0, 0, 0, 1, 0, 3.25, -9)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Title" unique_id=1954820562]
-material_override = SubResource("StandardMaterial3D_i5arm")
-mesh = SubResource("BoxMesh_jsk3o")
+collide_with_areas = true

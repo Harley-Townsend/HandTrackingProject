@@ -15,6 +15,7 @@ func _process(_delta):
 		ray.target_position = dir * 5.0
 
 		if ray.is_colliding():
+			print("Hit: ", ray.get_collider())
 			var hit = ray.get_collider()
 			if hit and hit.has_method("on_hand_point"):
 				hit.on_hand_point()

@@ -55,7 +55,7 @@ func update_hand(data: String):
 		var z = float(v[i * 3 + 2])
 
 		var pos = Vector3(
-			(x - 0.5) * 4.0,
+			-(x - 0.5) * 4.0,
 			(0.5 - y) * 4.0,
 			-z * 2.0
 		)
