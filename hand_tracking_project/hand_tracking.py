@@ -7,7 +7,10 @@ from mediapipe.tasks.python import BaseOptions
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 TARGET = ("127.0.0.1", 5555)
 
-model_path = "hand_landmarker.task"
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "hand_landmarker.task")
 cap = cv2.VideoCapture(0)
 
 base_options = BaseOptions(model_asset_path=model_path)
@@ -21,10 +24,11 @@ while True:
     ret, frame = cap.read()
     if not ret:
         break
-    # Flip the frame horizontally
-    frame = cv2.flip(frame, 1)
-    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
+    # Keep mirrored webcam view for comfort
+    frame = cv2.flip(frame, 1)
+
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
     result = detector.detect(mp_image)
 
@@ -33,7 +37,10 @@ while True:
 
         values = []
         for lm in hand:
-            values.append(str(lm.x))
+            # Mirror X to simulate opposite hand
+            mirrored_x = 1.0 - lm.x
+
+            values.append(str(mirrored_x))
             values.append(str(lm.y))
             values.append(str(lm.z))
 

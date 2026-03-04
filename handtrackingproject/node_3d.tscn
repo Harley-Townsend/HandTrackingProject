@@ -4,12 +4,14 @@
 [ext_resource type="Script" uid="uid://4gxl25lckx2m" path="res://start_button.gd" id="2_noarx"]
 [ext_resource type="Script" uid="uid://b288jfon4qpoi" path="res://quit_button.gd" id="3_r3fl7"]
 [ext_resource type="Script" uid="uid://oxx72x6sokk2" path="res://hand_joints.gd" id="4_jka67"]
+[ext_resource type="Shader" uid="uid://brccaksaqjnib" path="res://progress_ring.gdshader" id="5_i5arm"]
 [ext_resource type="Texture2D" uid="uid://dv5h75m0dsv30" path="res://vb_logo.png" id="5_jka67"]
+[ext_resource type="Script" uid="uid://byf0ragb8qo4l" path="res://back_button.gd" id="6_wc5p8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_noarx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0tk4"]
-albedo_color = Color(0.34604087, 0.53669584, 0.951255, 1)
+albedo_color = Color(0.14117648, 0.22745098, 0.44705883, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_r3fl7"]
 material = SubResource("StandardMaterial3D_a0tk4")
@@ -19,6 +21,12 @@ albedo_texture = ExtResource("5_jka67")
 
 [sub_resource type="QuadMesh" id="QuadMesh_wc5p8"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4arys"]
+albedo_color = Color(0.14509805, 0.23137255, 0.4509804, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_6iypd"]
+material = SubResource("StandardMaterial3D_4arys")
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_jka67"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc5p8"]
@@ -27,17 +35,207 @@ albedo_color = Color(0.14509805, 0.23529412, 0.45882353, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_jsk3o"]
 material = SubResource("StandardMaterial3D_wc5p8")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5arm"]
+render_priority = 0
+shader = ExtResource("5_i5arm")
+shader_parameter/fill_amount = 0.0
+shader_parameter/ring_color = Color(0.5137255, 0.92941177, 0.84313726, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_i5arm"]
+material = SubResource("ShaderMaterial_i5arm")
+inner_radius = 0.6
+outer_radius = 0.7
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_i5arm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsk3o"]
-albedo_color = Color(0.3764706, 0.8156863, 0.6745098, 1)
+albedo_color = Color(0.3647059, 0.8039216, 0.65882355, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_4arys"]
 material = SubResource("StandardMaterial3D_jsk3o")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wc5p8"]
+render_priority = 0
+shader = ExtResource("5_i5arm")
+shader_parameter/fill_amount = 0.0
+shader_parameter/ring_color = Color(0.5019608, 0.9098039, 0.8235294, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_jka67"]
+material = SubResource("ShaderMaterial_wc5p8")
+inner_radius = 0.6
+outer_radius = 0.7
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wc5p8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iypd"]
+albedo_color = Color(0.3647059, 0.8039216, 0.65882355, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_tereu"]
+material = SubResource("StandardMaterial3D_6iypd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jsk3o"]
+render_priority = 0
+shader = ExtResource("5_i5arm")
+shader_parameter/fill_amount = 0.0
+shader_parameter/ring_color = Color(0.5019608, 0.91764706, 0.827451, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_4arys"]
+material = SubResource("ShaderMaterial_jsk3o")
+inner_radius = 0.6
+outer_radius = 0.7
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cdqbm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_imku0"]
+albedo_color = Color(0.14117648, 0.22745098, 0.44705883, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wlxy5"]
+material = SubResource("StandardMaterial3D_imku0")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3v7ru"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tcnuu"]
+albedo_color = Color(0.14509805, 0.23137255, 0.4509804, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_tuemg"]
+material = SubResource("StandardMaterial3D_tcnuu")
+
 [sub_resource type="SphereMesh" id="SphereMesh_a202f"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_a0tk4"]
+
+[sub_resource type="Animation" id="Animation_i5arm"]
+resource_name = "Intro"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 5.1894298, 1.5922034), Vector3(0, 2.083962, 0.21739411)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.10887367, 3.1415925, -9.555813e-09)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WelcomeText:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4, 5, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WelcomeText:outline_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4, 5, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu3D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 7, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_wc5p8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 5.1894298, 1.5922034)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.10887367, 3.1415925, -9.555813e-09)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WelcomeText:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WelcomeText:outline_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Menu3D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jsk3o"]
+_data = {
+&"Intro": SubResource("Animation_i5arm"),
+&"RESET": SubResource("Animation_wc5p8")
+}
 
 [node name="Node3D" type="Node3D" unique_id=2050006339]
 script = ExtResource("1_a202f")
@@ -52,18 +250,23 @@ shape = SubResource("BoxShape3D_noarx")
 mesh = SubResource("BoxMesh_r3fl7")
 
 [node name="Title" type="MeshInstance3D" parent="." unique_id=463202910]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 5, -8)
+transform = Transform3D(-10, 0, 8.742278e-07, 0, 10, 0, -8.742278e-07, 0, -10, 0, 5, 6.689165)
 material_override = SubResource("StandardMaterial3D_i5arm")
 mesh = SubResource("QuadMesh_wc5p8")
 
+[node name="TitleBackground" type="MeshInstance3D" parent="Title" unique_id=1068507557]
+transform = Transform3D(2, 0, -1.4210855e-14, 0, 2, 0, 1.4210855e-14, 0, 2, 0, -0.2, -0.013)
+mesh = SubResource("QuadMesh_6iypd")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1221266358]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.1012857, -4.20841)
+transform = Transform3D(-1, 6.851196e-09, 1.5010177e-07, -9.499234e-09, 0.9940791, -0.10865871, -1.4995749e-07, -0.10865871, -0.9940791, 0, 5.1894298, 1.5922034)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1820449128]
-transform = Transform3D(1, 0, 0, 0, 0.69284827, 0.72108346, 0, -0.72108346, 0.69284827, 0, 7.2073197, 3.3541503)
+transform = Transform3D(1, 0, 0, 0, -0.6441504, 0.764899, 0, -0.764899, -0.6441504, 0, 12.54307, -6.841705)
 
 [node name="Menu3D" type="Node3D" parent="." unique_id=942427442]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4.502)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.3557255, 4.389373)
+visible = false
 
 [node name="StartButton" type="Area3D" parent="Menu3D" unique_id=603073137]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
@@ -79,6 +282,10 @@ mesh = SubResource("SphereMesh_jsk3o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
 text = "Start"
 
+[node name="ProgressRing" type="MeshInstance3D" parent="Menu3D/StartButton" unique_id=2078704284]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_i5arm")
+
 [node name="QuitButton" type="Area3D" parent="Menu3D" unique_id=1941333631]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("3_r3fl7")
@@ -93,8 +300,61 @@ mesh = SubResource("SphereMesh_4arys")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
 text = "Quit"
 
+[node name="ProgressRing" type="MeshInstance3D" parent="Menu3D/QuitButton" unique_id=914695151]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_jka67")
+
+[node name="SecondMenu3D" type="Node3D" parent="." unique_id=2060802973]
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 1.3557255, 4.389373)
+visible = false
+
+[node name="BackButton" type="Area3D" parent="SecondMenu3D" unique_id=1017404820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+script = ExtResource("6_wc5p8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondMenu3D/BackButton" unique_id=1464971571]
+shape = SubResource("SphereShape3D_wc5p8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SecondMenu3D/BackButton" unique_id=1208510791]
+mesh = SubResource("SphereMesh_tereu")
+
+[node name="Label3D" type="Label3D" parent="SecondMenu3D/BackButton" unique_id=1073237504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
+text = "Back"
+
+[node name="ProgressRing" type="MeshInstance3D" parent="SecondMenu3D/BackButton" unique_id=1346595632]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_4arys")
+
+[node name="UntitledButton" type="Area3D" parent="SecondMenu3D" unique_id=1408419329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondMenu3D/UntitledButton" unique_id=1924881182]
+shape = SubResource("SphereShape3D_cdqbm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SecondMenu3D/UntitledButton" unique_id=1797771910]
+mesh = SubResource("SphereMesh_wlxy5")
+
+[node name="Label3D" type="Label3D" parent="SecondMenu3D/UntitledButton" unique_id=956733685]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
+text = "Untitled"
+
+[node name="UntitledButton2" type="Area3D" parent="SecondMenu3D" unique_id=1148668065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondMenu3D/UntitledButton2" unique_id=1456253741]
+shape = SubResource("SphereShape3D_3v7ru")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SecondMenu3D/UntitledButton2" unique_id=886768007]
+mesh = SubResource("SphereMesh_tuemg")
+
+[node name="Label3D" type="Label3D" parent="SecondMenu3D/UntitledButton2" unique_id=654314194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
+text = "Untitled
+"
+
 [node name="HandJoints" type="Node3D" parent="." unique_id=1617193802]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.5293374)
 script = ExtResource("4_jka67")
 
 [node name="Joint0" type="Node3D" parent="HandJoints" unique_id=783392809]
@@ -231,3 +491,12 @@ mesh = SubResource("SphereMesh_a202f")
 
 [node name="RayCast3D" type="RayCast3D" parent="HandJoints" unique_id=940373036]
 collide_with_areas = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1809994259]
+libraries/ = SubResource("AnimationLibrary_jsk3o")
+
+[node name="WelcomeText" type="Label3D" parent="." unique_id=1495161858]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.7465329, 3.1649513)
+modulate = Color(1, 1, 1, 0)
+outline_modulate = Color(0, 0, 0, 0)
+text = "Welcome to VividBlock's Augmented Reality Experience!"

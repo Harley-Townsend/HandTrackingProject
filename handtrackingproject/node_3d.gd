@@ -1,5 +1,6 @@
 extends Node3D
 
+@onready var anim = $AnimationPlayer
 @onready var joints_root = $HandJoints
 var udp := PacketPeerUDP.new()
 
@@ -9,6 +10,7 @@ var last_wrist := Vector3.ZERO
 var has_last := false
 
 func _ready():
+	anim.play("Intro")
 	udp.bind(5555)
 	print("Listening for 21-joint hand tracking...")
 
@@ -55,7 +57,7 @@ func update_hand(data: String):
 		var z = float(v[i * 3 + 2])
 
 		var pos = Vector3(
-			-(x - 0.5) * 4.0,
+			(x - 0.5) * 4.0,
 			(0.5 - y) * 4.0,
 			-z * 2.0
 		)
