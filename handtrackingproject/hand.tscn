@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://dnahwpvg6m40n"]
-
-[ext_resource type="PackedScene" uid="uid://cfdsk88tfglyi" path="res://hand.fbx" id="1_u4p2i"]
-
-[node name="Hand" unique_id=1100876388 instance=ExtResource("1_u4p2i")]

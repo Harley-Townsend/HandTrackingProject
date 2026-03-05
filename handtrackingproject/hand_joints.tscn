@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://d4jtc2dv7y2v2"]
+
+[ext_resource type="Script" uid="uid://oxx72x6sokk2" path="res://hand_joints.gd" id="1_h1clr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_a202f"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a0tk4"]
+
+[node name="HandJoints" type="Node3D" unique_id=440673200]
+script = ExtResource("1_h1clr")
+
+[node name="Joint0" type="Node3D" parent="." unique_id=1592859169]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint0" unique_id=322311972]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint1" type="Node3D" parent="." unique_id=1379134143]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint1" unique_id=1431048817]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint2" type="Node3D" parent="." unique_id=407766449]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint2" unique_id=1859915331]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint3" type="Node3D" parent="." unique_id=737821631]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint3" unique_id=1990496052]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint4" type="Node3D" parent="." unique_id=148853738]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint4" unique_id=548888343]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint5" type="Node3D" parent="." unique_id=2043651034]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint5" unique_id=838689566]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint6" type="Node3D" parent="." unique_id=1574068930]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint6" unique_id=53700000]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint7" type="Node3D" parent="." unique_id=974652941]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint7" unique_id=483953583]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint8" type="Node3D" parent="." unique_id=672119079]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint8" unique_id=1582258462]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Area3D" type="Area3D" parent="Joint8" unique_id=1020465871]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Joint8/Area3D" unique_id=601424031]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_a0tk4")
+
+[node name="Joint9" type="Node3D" parent="." unique_id=2100785390]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint9" unique_id=385975032]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint10" type="Node3D" parent="." unique_id=1291293445]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint10" unique_id=724809677]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint11" type="Node3D" parent="." unique_id=984488760]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint11" unique_id=2029306024]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint12" type="Node3D" parent="." unique_id=629542679]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint12" unique_id=2018453683]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint13" type="Node3D" parent="." unique_id=1894890800]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint13" unique_id=1898539159]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint14" type="Node3D" parent="." unique_id=1242639815]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint14" unique_id=1100303552]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint15" type="Node3D" parent="." unique_id=1450833975]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint15" unique_id=109693510]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint16" type="Node3D" parent="." unique_id=1167212443]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint16" unique_id=417032256]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint17" type="Node3D" parent="." unique_id=1239819751]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint17" unique_id=1680987959]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint18" type="Node3D" parent="." unique_id=2032761134]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint18" unique_id=1767188256]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint19" type="Node3D" parent="." unique_id=1911048409]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint19" unique_id=1339290090]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="Joint20" type="Node3D" parent="." unique_id=1362255282]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Joint20" unique_id=2084480202]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_a202f")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=568035904]
+collide_with_areas = true

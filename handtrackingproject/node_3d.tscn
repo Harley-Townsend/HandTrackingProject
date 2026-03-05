@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://c25aelsxd0wgv" path="res://node_3d.gd" id="1_a202f"]
 [ext_resource type="Script" uid="uid://4gxl25lckx2m" path="res://start_button.gd" id="2_noarx"]
 [ext_resource type="Script" uid="uid://b288jfon4qpoi" path="res://quit_button.gd" id="3_r3fl7"]
-[ext_resource type="Script" uid="uid://oxx72x6sokk2" path="res://hand_joints.gd" id="4_jka67"]
 [ext_resource type="Shader" uid="uid://brccaksaqjnib" path="res://progress_ring.gdshader" id="5_i5arm"]
 [ext_resource type="Texture2D" uid="uid://dv5h75m0dsv30" path="res://vb_logo.png" id="5_jka67"]
 [ext_resource type="Script" uid="uid://byf0ragb8qo4l" path="res://back_button.gd" id="6_wc5p8"]
+[ext_resource type="Script" uid="uid://ck8uc3kovpv8w" path="res://hands_on_hardware_button.gd" id="7_jsk3o"]
+[ext_resource type="PackedScene" uid="uid://d4jtc2dv7y2v2" path="res://hand_joints.tscn" id="8_jsk3o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_noarx"]
 
@@ -92,6 +93,17 @@ albedo_color = Color(0.14117648, 0.22745098, 0.44705883, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_wlxy5"]
 material = SubResource("StandardMaterial3D_imku0")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4arys"]
+render_priority = 0
+shader = ExtResource("5_i5arm")
+shader_parameter/fill_amount = 0.0
+shader_parameter/ring_color = Color(0.3647059, 0.8039216, 0.6627451, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_6iypd"]
+material = SubResource("ShaderMaterial_4arys")
+inner_radius = 0.6
+outer_radius = 0.7
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_3v7ru"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tcnuu"]
@@ -99,10 +111,6 @@ albedo_color = Color(0.14509805, 0.23137255, 0.4509804, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_tuemg"]
 material = SubResource("StandardMaterial3D_tcnuu")
-
-[sub_resource type="SphereMesh" id="SphereMesh_a202f"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_a0tk4"]
 
 [sub_resource type="Animation" id="Animation_i5arm"]
 resource_name = "Intro"
@@ -326,18 +334,24 @@ text = "Back"
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("TorusMesh_4arys")
 
-[node name="UntitledButton" type="Area3D" parent="SecondMenu3D" unique_id=1408419329]
+[node name="Hands-OnHardwareButton" type="Area3D" parent="SecondMenu3D" unique_id=1408419329]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+script = ExtResource("7_jsk3o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondMenu3D/UntitledButton" unique_id=1924881182]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SecondMenu3D/Hands-OnHardwareButton" unique_id=1924881182]
 shape = SubResource("SphereShape3D_cdqbm")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SecondMenu3D/UntitledButton" unique_id=1797771910]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SecondMenu3D/Hands-OnHardwareButton" unique_id=1797771910]
 mesh = SubResource("SphereMesh_wlxy5")
 
-[node name="Label3D" type="Label3D" parent="SecondMenu3D/UntitledButton" unique_id=956733685]
+[node name="Label3D" type="Label3D" parent="SecondMenu3D/Hands-OnHardwareButton" unique_id=956733685]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
-text = "Untitled"
+text = "Hands-On
+Hardware"
+
+[node name="ProgressRing" type="MeshInstance3D" parent="SecondMenu3D/Hands-OnHardwareButton" unique_id=1099961882]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_6iypd")
 
 [node name="UntitledButton2" type="Area3D" parent="SecondMenu3D" unique_id=1148668065]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
@@ -353,144 +367,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
 text = "Untitled
 "
 
-[node name="HandJoints" type="Node3D" parent="." unique_id=1617193802]
+[node name="HandJoints" parent="." unique_id=440673200 instance=ExtResource("8_jsk3o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3.5293374)
-script = ExtResource("4_jka67")
-
-[node name="Joint0" type="Node3D" parent="HandJoints" unique_id=783392809]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint0" unique_id=678337417]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint1" type="Node3D" parent="HandJoints" unique_id=1365656726]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint1" unique_id=1924931293]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint2" type="Node3D" parent="HandJoints" unique_id=444632966]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint2" unique_id=849025526]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint3" type="Node3D" parent="HandJoints" unique_id=99186898]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint3" unique_id=706661484]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint4" type="Node3D" parent="HandJoints" unique_id=1782892124]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint4" unique_id=1415808927]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint5" type="Node3D" parent="HandJoints" unique_id=1507872323]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint5" unique_id=1555904633]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint6" type="Node3D" parent="HandJoints" unique_id=146449748]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint6" unique_id=1813048932]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint7" type="Node3D" parent="HandJoints" unique_id=1418710990]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint7" unique_id=1499995196]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint8" type="Node3D" parent="HandJoints" unique_id=1452451483]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint8" unique_id=1638223614]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Area3D" type="Area3D" parent="HandJoints/Joint8" unique_id=969907052]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HandJoints/Joint8/Area3D" unique_id=1491440017]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-shape = SubResource("SphereShape3D_a0tk4")
-
-[node name="Joint9" type="Node3D" parent="HandJoints" unique_id=131490630]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint9" unique_id=1954843048]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint10" type="Node3D" parent="HandJoints" unique_id=1663982703]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint10" unique_id=633612612]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint11" type="Node3D" parent="HandJoints" unique_id=1753205636]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint11" unique_id=437686556]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint12" type="Node3D" parent="HandJoints" unique_id=1869373003]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint12" unique_id=2044651934]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint13" type="Node3D" parent="HandJoints" unique_id=397701183]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint13" unique_id=2097665734]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint14" type="Node3D" parent="HandJoints" unique_id=1709396510]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint14" unique_id=697431732]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint15" type="Node3D" parent="HandJoints" unique_id=921196534]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint15" unique_id=1961144844]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint16" type="Node3D" parent="HandJoints" unique_id=1870239497]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint16" unique_id=510926729]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint17" type="Node3D" parent="HandJoints" unique_id=1748585867]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint17" unique_id=2039934652]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint18" type="Node3D" parent="HandJoints" unique_id=913932105]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint18" unique_id=1865081668]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint19" type="Node3D" parent="HandJoints" unique_id=867335787]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint19" unique_id=1529618099]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="Joint20" type="Node3D" parent="HandJoints" unique_id=294757658]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HandJoints/Joint20" unique_id=98822635]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = SubResource("SphereMesh_a202f")
-
-[node name="RayCast3D" type="RayCast3D" parent="HandJoints" unique_id=940373036]
-collide_with_areas = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1809994259]
 libraries/ = SubResource("AnimationLibrary_jsk3o")
@@ -499,4 +377,4 @@ libraries/ = SubResource("AnimationLibrary_jsk3o")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.7465329, 3.1649513)
 modulate = Color(1, 1, 1, 0)
 outline_modulate = Color(0, 0, 0, 0)
-text = "Welcome to VividBlock's Augmented Reality Experience!"
+text = "Welcome to VividBlock's Virtual Interactive Experience!"
