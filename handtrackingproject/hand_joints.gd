@@ -1,20 +1,33 @@
 extends Node3D
 
 @onready var joint8_area = $Joint8/Area3D
-@onready var joint0 = $Joint0      # wrist
-@onready var joint4 = $Joint4      # thumb tip
-@onready var joint20 = $Joint20    # pinky tip
-
-@onready var camera = $"../Camera3D"   # camera following the hand
+@onready var joint8 = $Joint8
+@onready var joint9 = $Joint9
+@onready var joint4 = $Joint4      # thumb
+@onready var joint20 = $Joint20    # pinky
+@onready var camera : Camera3D = get_parent() as Camera3D
 
 var udp := PacketPeerUDP.new()
 var joints = []
-var smoothing_speed := 12.0
 
-# Pinch control
-var pinch_threshold := 0.08
-var is_pinching := false
+# tracking
+var smoothing_speed := 18.0
+
+# gestures
+var grab_threshold := 0.07
+var rotate_threshold := 0.12
+
+var is_grabbing := false
+var is_rotating := false
+
 var last_hand_pos := Vector3.ZERO
+
+# grabbing
+var grabbed_object = null
+
+# camera
+var default_camera_transform : Transform3D
+
 
 func _ready():
 
@@ -25,14 +38,18 @@ func _ready():
 	if err != OK:
 		print("UDP bind failed")
 	else:
-		print("Listening for 21-joint hand tracking...")
+		print("Listening for hand tracking...")
 
 	for i in range(21):
 		joints.append(get_node("Joint" + str(i)))
 
-	# reconnect fingertip detection
+	joint8_area.monitoring = true
+
 	joint8_area.area_entered.connect(_on_finger_enter)
 	joint8_area.area_exited.connect(_on_finger_exit)
+
+	if camera:
+		default_camera_transform = camera.global_transform
 
 
 func _process(delta):
@@ -41,15 +58,20 @@ func _process(delta):
 		var packet = udp.get_packet().get_string_from_utf8()
 		update_hand(packet)
 
-	check_camera_control(delta)
+	handle_camera_rotation()
+
+	if Input.is_key_pressed(KEY_R) and camera:
+		camera.global_transform = default_camera_transform
 
 
-func update_hand(data: String):
+func update_hand(data : String):
 
 	var v = data.split(",")
 
 	if v.size() < 63:
 		return
+
+	var raw_positions = []
 
 	for i in range(21):
 
@@ -63,38 +85,77 @@ func update_hand(data: String):
 			-z * 2.0
 		)
 
-		var t = 1.0 - exp(-smoothing_speed * get_process_delta_time())
-		joints[i].position = joints[i].position.lerp(pos, t)
+		raw_positions.append(pos)
+
+	var t = 1.0 - exp(-smoothing_speed * get_process_delta_time())
+
+	for i in range(21):
+		joints[i].position = joints[i].position.lerp(raw_positions[i], t)
+
+	check_gestures()
 
 
-func check_camera_control(delta):
+func check_gestures():
 
-	if not joint4 or not joint20:
-		return
+	var thumb_pos = joint4.global_position
+	var index_pos = joint8.global_position
+	var pinky_pos = joint20.global_position
 
-	var pinch_distance = joint4.global_position.distance_to(joint20.global_position)
+	var grab_distance = thumb_pos.distance_to(index_pos)
+	var rotate_distance = thumb_pos.distance_to(pinky_pos)
 
-	# fingers touching = enable camera movement
-	if pinch_distance < pinch_threshold:
+	# ----- GRAB -----
+	if grab_distance < grab_threshold:
 
-		if not is_pinching:
-			is_pinching = true
-			last_hand_pos = joint0.global_position
-			return
+		if !is_grabbing:
 
-		var current_pos = joint0.global_position
-		var movement = current_pos - last_hand_pos
-		last_hand_pos = current_pos
-
-		# rotate camera based on hand movement
-		camera.rotate_y(-movement.x * 2.0)
-		camera.rotate_x(-movement.y * 2.0)
-
-		# prevent camera flipping
-		camera.rotation.x = clamp(camera.rotation.x, -1.2, 1.2)
+			is_grabbing = true
+			try_grab()
 
 	else:
-		is_pinching = false
+
+		if grabbed_object:
+			grabbed_object.release()
+			grabbed_object = null
+
+		is_grabbing = false
+
+	# ----- ROTATE CAMERA -----
+	if rotate_distance < rotate_threshold and !is_grabbing:
+
+		if !is_rotating:
+			is_rotating = true
+			last_hand_pos = joint9.global_position
+
+	else:
+		is_rotating = false
+
+
+func try_grab():
+
+	var areas = joint8_area.get_overlapping_areas()
+
+	for a in areas:
+
+		var obj = a.get_parent()
+
+		if obj.has_method("grab"):
+			grabbed_object = obj
+			obj.grab(joint8)
+			break
+
+
+func handle_camera_rotation():
+
+	if is_rotating and camera:
+
+		var current_pos = joint9.global_position
+		var movement = current_pos - last_hand_pos
+
+		camera.rotate_y(-movement.x * 0.7)
+		camera.rotate_x(-movement.y * 0.7)
+
+		last_hand_pos = current_pos
 
 
 func _on_finger_enter(area):

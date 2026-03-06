@@ -2,14 +2,36 @@
 
 [ext_resource type="PackedScene" uid="uid://ysb6pxp6pevo" path="res://office.tscn" id="1_evijt"]
 [ext_resource type="PackedScene" uid="uid://d4jtc2dv7y2v2" path="res://hand_joints.tscn" id="2_evijt"]
+[ext_resource type="Script" uid="uid://c7yiovyih0fs4" path="res://box.gd" id="3_246d6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_246d6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mgv4n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gsm42"]
 
 [node name="Hands-OnHardware" type="Node3D" unique_id=1881341545]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1870542134]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6105963, 2.5, -0.65664506)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6105963, 2.5, -1.193903)
+
+[node name="HandJoints" parent="Camera3D" unique_id=440673200 instance=ExtResource("2_evijt")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.3841858e-07, -1, -2.3372579)
 
 [node name="Office" parent="." unique_id=1498317192 instance=ExtResource("1_evijt")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="HandJoints" parent="." unique_id=440673200 instance=ExtResource("2_evijt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6105963, 1.5, 1.1433549)
+[node name="Box" type="RigidBody3D" parent="." unique_id=394511911]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7375338, 0.617857, 2.0308385)
+script = ExtResource("3_246d6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box" unique_id=1989769618]
+mesh = SubResource("BoxMesh_246d6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box" unique_id=1217655555]
+shape = SubResource("BoxShape3D_mgv4n")
+
+[node name="Area3D" type="Area3D" parent="Box" unique_id=804182524]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Area3D" unique_id=270105521]
+shape = SubResource("BoxShape3D_gsm42")
