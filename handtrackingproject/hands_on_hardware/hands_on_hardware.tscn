@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bmf5upmxmxglu"]
+
+[ext_resource type="PackedScene" uid="uid://d4jtc2dv7y2v2" path="res://player_hand/hand_joints.tscn" id="1_7xsv6"]
+[ext_resource type="PackedScene" uid="uid://ysb6pxp6pevo" path="res://hands_on_hardware/props/office/office.tscn" id="2_r8c6w"]
+[ext_resource type="PackedScene" uid="uid://bk8udgjga37eq" path="res://hands_on_hardware/Grabbables/box/box.tscn" id="3_pde4f"]
+[ext_resource type="PackedScene" uid="uid://me8cckp4wj0q" path="res://hands_on_hardware/Grabbables/box_cutter/box_cutter.tscn" id="4_pde4f"]
+
+[node name="Hands-OnHardware" type="Node3D" unique_id=1881341545]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1870542134]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.6105963, 2.5, -0.89907694)
+
+[node name="HandJoints" parent="Camera3D" unique_id=440673200 instance=ExtResource("1_7xsv6")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.3841858e-07, -1, -2.3372579)
+
+[node name="Office" parent="." unique_id=1498317192 instance=ExtResource("2_r8c6w")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="Box" parent="." unique_id=325545429 instance=ExtResource("3_pde4f")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -2.8824337, 0.5822432, -1.0121886)
+
+[node name="BoxCutter" parent="." unique_id=721465867 instance=ExtResource("4_pde4f")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -1.7632599, 1.102292, 1.5881646)

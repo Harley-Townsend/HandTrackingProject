@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://me8cckp4wj0q"]
+
+[ext_resource type="Script" uid="uid://bqnqtiysdkpdc" path="res://hands_on_hardware/Grabbables/box_cutter/box_cutter.gd" id="1_f57nx"]
+[ext_resource type="PackedScene" uid="uid://dr4lmuf3r185k" path="res://hands_on_hardware/Grabbables/box_cutter/boxCutter.glb" id="1_jgaba"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f57nx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sr2x7"]
+
+[node name="BoxCutter" type="RigidBody3D" unique_id=721465867]
+script = ExtResource("1_f57nx")
+
+[node name="boxCutter" parent="." unique_id=26632959 instance=ExtResource("1_jgaba")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=157548662]
+transform = Transform3D(0.3, 0, 0, 0, 0.6, 0, 0, 0, 0.3, 0, 0.033335894, 0)
+shape = SubResource("BoxShape3D_f57nx")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1135957420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20235747, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1050391469]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.03219673, 0)
+shape = SubResource("BoxShape3D_sr2x7")
