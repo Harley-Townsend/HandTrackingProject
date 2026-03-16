@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bcsqbq5k6ybg1"]
+
+[ext_resource type="PackedScene" uid="uid://ghik4l0fjjb5" path="res://hands_on_hardware/Grabbables/mouse/mouse.glb" id="1_1hohj"]
+[ext_resource type="Script" uid="uid://vi7ouivo35c3" path="res://hands_on_hardware/Grabbables/monitor/item_info.gd" id="1_yq4qa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yq4qa"]
+
+[node name="mouse" type="RigidBody3D" unique_id=1460610403]
+script = ExtResource("1_yq4qa")
+description = "n output device that displays visual information from a computer. It shows everything from the operating system and applications to videos and games, allowing the user to interact with the computer."
+
+[node name="mouse" parent="." unique_id=464065286 instance=ExtResource("1_1hohj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1217476612]
+transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 5, 0, 0, 0.62682414)
+shape = SubResource("BoxShape3D_yq4qa")

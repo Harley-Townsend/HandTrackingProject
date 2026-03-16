@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b0cinyfkxkbvv"]
+
+[ext_resource type="PackedScene" uid="uid://bphfrnbynsfjd" path="res://hands_on_hardware/Grabbables/keyboard/keyboard.glb" id="1_7o6h0"]
+[ext_resource type="Script" uid="uid://vi7ouivo35c3" path="res://hands_on_hardware/Grabbables/monitor/item_info.gd" id="1_ognv2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ognv2"]
+
+[node name="keyboard" type="RigidBody3D" unique_id=1869430013]
+script = ExtResource("1_ognv2")
+description = "A keyboard is an input device used to type text and send commands to a computer using keys for letters, numbers, and functions."
+
+[node name="keyboard" parent="." unique_id=1230540648 instance=ExtResource("1_7o6h0")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=658705585]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 2.5, 0, 0.30131757, 0)
+shape = SubResource("BoxShape3D_ognv2")

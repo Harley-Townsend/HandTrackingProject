@@ -3,9 +3,12 @@ extends Node3D
 @onready var joint8_area = $Joint8/Area3D
 @onready var joint8 = $Joint8
 @onready var joint9 = $Joint9
-@onready var joint4 = $Joint4      # thumb
-@onready var joint20 = $Joint20    # pinky
+@onready var joint4 = $Joint4
+@onready var joint20 = $Joint20
 @onready var camera : Camera3D = get_parent() as Camera3D
+
+# box cutter reference
+@onready var box_cutter = get_node_or_null("../../BoxCutter")
 
 var udp := PacketPeerUDP.new()
 var joints = []
@@ -18,21 +21,19 @@ var grab_start_threshold := 0.2
 var grab_release_threshold := 0.21
 var rotate_threshold := 0.12
 
-var rotate_anchor := Vector3.ZERO
 var is_grabbing := false
 var is_rotating := false
 
-var last_hand_pos := Vector3.ZERO
+var rotate_anchor := Vector3.ZERO
 
 # grabbing
 var grabbed_object = null
 
-# camera
+# camera reset
 var default_camera_transform : Transform3D
 
-# camera rotation control
-var rotation_sensitivity := 0.15
-var deadzone := 0.002
+# cutter reset
+var default_cutter_transform : Transform3D
 
 
 func _ready():
@@ -58,6 +59,9 @@ func _ready():
 	if camera:
 		default_camera_transform = camera.global_transform
 
+	if box_cutter:
+		default_cutter_transform = box_cutter.global_transform
+
 
 func _process(delta):
 
@@ -67,8 +71,19 @@ func _process(delta):
 
 	handle_camera_rotation()
 
-	if Input.is_key_pressed(KEY_R) and camera:
-		camera.global_transform = default_camera_transform
+	# RESET CAMERA + CUTTER
+	if Input.is_key_pressed(KEY_R):
+
+		if camera:
+			camera.global_transform = default_camera_transform
+
+		if box_cutter:
+			box_cutter.global_transform = default_cutter_transform
+
+			# stop physics motion
+			if box_cutter is RigidBody3D:
+				box_cutter.linear_velocity = Vector3.ZERO
+				box_cutter.angular_velocity = Vector3.ZERO
 
 
 func update_hand(data : String):
@@ -111,13 +126,12 @@ func check_gestures():
 	var grab_distance = thumb_pos.distance_to(index_pos)
 	var rotate_distance = thumb_pos.distance_to(pinky_pos)
 
-	# ----- START GRAB -----
+	# START GRAB
 	if !is_grabbing and grab_distance < grab_start_threshold:
-
 		is_grabbing = true
 		try_grab()
 
-	# ----- RELEASE GRAB -----
+	# RELEASE GRAB
 	if is_grabbing and grab_distance > grab_release_threshold:
 
 		if grabbed_object:
@@ -126,18 +140,18 @@ func check_gestures():
 
 		is_grabbing = false
 
-
-	# ----- ROTATE CAMERA -----
+	# ROTATE CAMERA
 	if rotate_distance < rotate_threshold and !is_grabbing:
+
 		if !is_rotating:
 			is_rotating = true
 			rotate_anchor = joint9.position
+
 	else:
 		is_rotating = false
 
 
 func try_grab():
-	print("Bodies touching:", joint8_area.get_overlapping_bodies())
 
 	var bodies = joint8_area.get_overlapping_bodies()
 
@@ -169,18 +183,15 @@ func handle_camera_rotation():
 
 		var offset = joint9.position - rotate_anchor
 
-		# smooth the offset heavily
 		offset.x = lerp(0.0, offset.x, 0.2)
 		offset.y = lerp(0.0, offset.y, 0.2)
 
-		# joystick-style rotation
 		var yaw_speed = offset.x * 1.5
 		var pitch_speed = offset.y * 1.2
 
 		camera.rotate_y(-yaw_speed * get_process_delta_time())
 		camera.rotate_x(-pitch_speed * get_process_delta_time())
 
-		# clamp vertical look
 		camera.rotation.x = clamp(camera.rotation.x, -1.2, 1.2)
 
 

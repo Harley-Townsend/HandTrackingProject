@@ -5,7 +5,6 @@ var hand : Node3D = null
 var grab_offset := Vector3.ZERO
 var grab_rotation_offset : Basis
 
-
 @onready var cut_area = $Area3D
 
 
@@ -48,4 +47,9 @@ func _on_cut_area_body_entered(body):
 
 	# Only cut if the cutter is being held
 	if grabbed and body.is_in_group("cuttable"):
-		body.queue_free()
+
+		# If the object has an open_box function, use it
+		if body.has_method("open_box"):
+			body.open_box()
+		else:
+			body.queue_free()

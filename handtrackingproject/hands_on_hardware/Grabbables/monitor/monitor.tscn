@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cfuc8allrg4v1"]
+
+[ext_resource type="Script" uid="uid://vi7ouivo35c3" path="res://hands_on_hardware/Grabbables/monitor/item_info.gd" id="1_djlwb"]
+[ext_resource type="PackedScene" uid="uid://cqkjjh3q2cy10" path="res://hands_on_hardware/Grabbables/monitor/monitor.glb" id="1_n7bov"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7bov"]
+
+[node name="RigidBody3D" type="RigidBody3D" unique_id=1150899154]
+script = ExtResource("1_djlwb")
+description = "This is a monitor. AA monitor is an output device that displays visual information from a computer. It shows everything from the operating system and applications to videos and games, allowing the user to interact with the computer."
+
+[node name="monitorglb" parent="." unique_id=569320919 instance=ExtResource("1_n7bov")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=686604648]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.4645102, 0)
+shape = SubResource("BoxShape3D_n7bov")
