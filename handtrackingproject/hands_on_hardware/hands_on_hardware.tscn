@@ -4,10 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d4jtc2dv7y2v2" path="res://player_hand/hand_joints.tscn" id="1_7xsv6"]
 [ext_resource type="PackedScene" uid="uid://ysb6pxp6pevo" path="res://hands_on_hardware/props/office/office.tscn" id="2_r8c6w"]
 [ext_resource type="PackedScene" uid="uid://bk8udgjga37eq" path="res://hands_on_hardware/Grabbables/box/box.tscn" id="3_pde4f"]
-[ext_resource type="PackedScene" uid="uid://b0cinyfkxkbvv" path="res://hands_on_hardware/Grabbables/keyboard/keyboard.tscn" id="4_mcbm4"]
 [ext_resource type="PackedScene" uid="uid://me8cckp4wj0q" path="res://hands_on_hardware/Grabbables/box_cutter/box_cutter.tscn" id="4_pde4f"]
-[ext_resource type="PackedScene" uid="uid://bcsqbq5k6ybg1" path="res://hands_on_hardware/Grabbables/mouse/mouse.tscn" id="5_5cl01"]
-[ext_resource type="PackedScene" uid="uid://cfuc8allrg4v1" path="res://hands_on_hardware/Grabbables/monitor/monitor.tscn" id="6_mcbm4"]
 
 [sub_resource type="Animation" id="Animation_mcbm4"]
 resource_name = "HohIntro"
@@ -94,6 +91,10 @@ _data = {
 &"RESET": SubResource("Animation_5cl01")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5cl01"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ip4yp"]
+
 [node name="Hands-OnHardware" type="Node3D" unique_id=1881341545]
 script = ExtResource("1_5cl01")
 
@@ -112,16 +113,22 @@ transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70
 
 [node name="BoxKeyNMouse" parent="." unique_id=699614409 instance=ExtResource("3_pde4f")]
 transform = Transform3D(0.9966502, 0, -0.08178195, 0, 1, 0, 0.08178195, 0, 0.9966502, -3.2438622, 0.49999988, 0.24882746)
-contents = Array[PackedScene]([ExtResource("4_mcbm4"), ExtResource("5_5cl01")])
-content_scales = Array[Vector3]([Vector3(0.15, 0.15, 0.15), Vector3(0.05, 0.05, 0.05)])
 
 [node name="BoxMonitor" parent="." unique_id=1198619024 instance=ExtResource("3_pde4f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.254115, 1.6210053, -0.2066882)
-contents = Array[PackedScene]([ExtResource("6_mcbm4")])
-content_scales = Array[Vector3]([Vector3(0.2, 0.2, 0.2)])
 
 [node name="BoxCutter" parent="." unique_id=721465867 instance=ExtResource("4_pde4f")]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0.44117737, 1.102292, 1.4546797)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1029211271]
 libraries/ = SubResource("AnimationLibrary_ip4yp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=573886747]
+transform = Transform3D(10, 0, 0, 0, 6, 0, 0, 0, 1, 0, 1.1428235, 2.3169663)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1943687005]
+shape = SubResource("BoxShape3D_5cl01")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=701465655]
+visible = false
+mesh = SubResource("BoxMesh_ip4yp")

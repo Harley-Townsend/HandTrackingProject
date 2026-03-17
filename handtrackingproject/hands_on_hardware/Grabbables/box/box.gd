@@ -83,7 +83,7 @@ func open_box():
 
 			var impulse = Vector3(
 				randf_range(-pop_force, pop_force),
-				pop_force * 1.0,
+				pop_force * 0.5,
 				randf_range(-pop_force, pop_force)
 			)
 
