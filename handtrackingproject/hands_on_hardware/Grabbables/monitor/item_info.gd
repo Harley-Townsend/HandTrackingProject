@@ -52,8 +52,8 @@ func show_text():
 
 	label.text = description
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	label.font_size = 14   # smaller text
-	label.position = Vector3(0, text_height, 0)
+	label.font_size = 80  # smaller text
+	label.position = Vector3(0, text_height, 26)
 
 	add_child(label)   # attach to item so it follows
 
