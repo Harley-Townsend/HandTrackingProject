@@ -1,8 +1,8 @@
 extends RigidBody3D
 
 @export var description : String = "Item description"
-@export var text_height := 0.25
-@export var text_duration := 4.0
+@export var text_height := 0.2
+@export var text_duration := 12.0
 
 var grabbed := false
 var hand : Node3D = null
@@ -10,6 +10,8 @@ var grab_offset := Vector3.ZERO
 
 var explanation_shown := false
 var label : Label3D
+
+@onready var camera = get_viewport().get_camera_3d()
 
 
 func grab(hand_node):
@@ -23,7 +25,6 @@ func grab(hand_node):
 
 	grab_offset = global_position - hand.global_position
 
-	# show explanation first time grabbed
 	if !explanation_shown:
 		show_text()
 		explanation_shown = true
@@ -41,23 +42,26 @@ func _physics_process(delta):
 	if grabbed and hand:
 		global_position = global_position.lerp(hand.global_position + grab_offset, 0.35)
 
-	# keep text above item
 	if label:
 		label.position = Vector3(0, text_height, 0)
+
+		# ⭐ SCALE WITH DISTANCE (this fixes readability)
+		if camera:
+			var dist = global_position.distance_to(camera.global_position)
+			label.scale = Vector3.ONE * dist * 0.15
 
 
 func show_text():
 
-	label = Label3D.new()
+	var ui = get_tree().current_scene.get_node("CanvasLayer/InfoLabel")
 
-	label.text = description
-	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	label.font_size = 80  # smaller text
-	label.position = Vector3(0, text_height, 26)
+	if ui == null:
+		print("UI label not found!")
+		return
 
-	add_child(label)   # attach to item so it follows
+	ui.text = description
+	ui.visible = true
 
 	await get_tree().create_timer(text_duration).timeout
 
-	if label:
-		label.queue_free()
+	ui.visible = false
