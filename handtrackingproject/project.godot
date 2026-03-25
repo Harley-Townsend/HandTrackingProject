@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="handtrackingproject"
+config/name="VividEducation"
 run/main_scene="uid://sg2vncb4hjfe"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
