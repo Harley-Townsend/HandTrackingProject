@@ -145,3 +145,4 @@ mesh = SubResource("BoxMesh_ip4yp")
 [node name="InfoLabel" type="Label" parent="CanvasLayer" unique_id=1294808054]
 offset_right = 40.0
 offset_bottom = 23.0
+autowrap_mode = 3

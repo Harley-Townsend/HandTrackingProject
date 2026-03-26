@@ -377,4 +377,4 @@ libraries/ = SubResource("AnimationLibrary_jsk3o")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.7465329, 3.1649513)
 modulate = Color(1, 1, 1, 0)
 outline_modulate = Color(0, 0, 0, 0)
-text = "Welcome to VividBlock's Virtual Interactive Experience!"
+text = "Welcome to VividBlock's Virtual Interactive Experience - Vivid Education!"
